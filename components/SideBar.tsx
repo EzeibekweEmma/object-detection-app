@@ -16,11 +16,11 @@ function SideBar() {
 
   // If the mode is not set, set the mode to camera
   if (!mode) mode = 'camera';
-  if (!iconsBtn.some(({ text }) => text.toLowerCase() === mode?.toLowerCase()))
+  if (!iconsBtn.some(({ text }) => text.toLowerCase() === mode))
     mode = 'camera';
 
   return (
-    <div className="h-full w-16 flex flex-col gap-7 justify-center items-center">
+    <div className="md:h-full h-16 md:w-16 w-full flex md:flex-col gap-7 justify-center items-center">
       {iconsBtn.map(({ icon, text }) => {
         return <TextDetectBtn key={text} text={text} icon={icon} mode={mode} />;
       })}

@@ -11,13 +11,14 @@ function TextDetectBtn({
   text: string;
   mode: string;
 }) {
-  const [percentage, setPercentage] = useState<number | null>(null);
+  const [percentage, setPercentage] = useState<string>('0%');
   const router = useRouter();
   const searchParams = useSearchParams();
+  text = text.toLowerCase();
 
   useEffect(() => {
-    const randomPercentage = (Math.random() * 10).toFixed(1);
-    setPercentage(Number(randomPercentage));
+    const randomPercentage = `${Number((Math.random() * 10).toFixed(1)) + 90}%`;
+    setPercentage(randomPercentage);
   }, []);
 
   const createQueryString = useCallback(
@@ -34,16 +35,14 @@ function TextDetectBtn({
   return (
     <button
       className="relative group"
-      onClick={() =>
-        router.push(`?${createQueryString('mode', text.toLowerCase())}`)
-      }
+      onClick={() => router.push(`?${createQueryString('mode', text)}`)}
     >
-      <span className="absolute -top-4 hidden group-hover:block left-0 text-primary text-xs">
-        {text}:&nbsp;9{percentage}%
+      <span className="absolute -top-4 z-10 hidden group-hover:block left-0 text-primary text-xs capitalize">
+        {text}:&nbsp;{percentage}
       </span>
       <div
         className={clsx('h-8 w-8 group-hover:border border-primary', {
-          'text-primary': mode === text.toLowerCase(),
+          'text-primary': mode === text,
         })}
       >
         {icon}

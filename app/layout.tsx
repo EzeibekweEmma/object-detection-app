@@ -26,7 +26,7 @@ export default function RootLayout({
             </h1>
           </div>
         </header>
-        <section className="flex h-[89.7dvh] gap-2">
+        <section className="flex h-[89.7dvh] md:flex-row flex-col-reverse">
           <SideBar />
           {children}
         </section>
