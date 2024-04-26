@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tensorflow-models/coco-ssd": "^2.2.3",
+    "@tensorflow/tfjs": "^4.18.0",
     "clsx": "^2.1.1",
     "next": "14.2.3",
     "react": "^18",

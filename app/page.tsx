@@ -1,6 +1,4 @@
-'use client';
-
-import Webcam from 'react-webcam';
+import CameraDetection from '@/components/CameraDetection';
 
 export default function Home() {
   return (
@@ -9,12 +7,8 @@ export default function Home() {
         <span className="absolute -top-4 left-0 text-primary text-xs">
           Frame:&nbsp;99.9%
         </span>
-        <Webcam
-          audio={false}
-          mirrored={true}
-          muted
-          className="h-full w-full border-2 border-primary"
-        />
+        {/* Detection mode goes here! */}
+        <CameraDetection />
       </section>
     </main>
   );
