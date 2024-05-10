@@ -12,7 +12,7 @@ export const renderPredictions = (predictions: any[], ctx: any) => {
     )}%`;
 
     // bounding box
-    ctx.strokeStyle = ctx.fillStyle = '#22C55E';
+    ctx.strokeStyle = ctx.fillStyle = '#68fc85';
     ctx.lineWidth = 1;
     ctx.strokeRect(x, y, width, height);
     ctx.fillText(result, x - 1, y - 2);
