@@ -8,9 +8,9 @@ import Webcam from 'react-webcam';
 
 function CameraDetection() {
   const [isLoading, setIsLoading] = useState(true);
+  const [detectInterval, setDetectInterval] = useState<NodeJS.Timeout>();
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  let detectInterval: NodeJS.Timeout;
 
   async function startCoco() {
     setIsLoading(true);
@@ -19,9 +19,10 @@ function CameraDetection() {
       tf.ready();
       const model = await load();
       setIsLoading(false);
-      detectInterval = setInterval(() => {
+      const interval = setInterval(() => {
         runDetection(model);
       }, 10);
+      setDetectInterval(interval);
     } catch (error) {
       console.error('Error loading model:', error);
       setIsLoading(false);
@@ -43,7 +44,7 @@ function CameraDetection() {
         const detectedObjects = await model.detect(
           (webcamRef.current as any).video,
           undefined,
-          0.4 // A threshold of 0.6 is used to determine the confidence of the detected objects.
+          0.6 // A threshold of 0.6 is used to determine the confidence of the detected objects.
         );
 
         const context = (canvasRef.current as any).getContext('2d');
@@ -57,9 +58,11 @@ function CameraDetection() {
   useEffect(() => {
     startCoco();
     return () => {
-      clearInterval(detectInterval);
+      if (detectInterval) {
+        clearInterval(detectInterval);
+      }
     };
-  }, [detectInterval, startCoco]);
+  }, [detectInterval]);
 
   return (
     <>
