@@ -16,13 +16,7 @@ export default function Home() {
         </span>
 
         {/* Detection mode goes here! */}
-        {mode === 'image' ? (
-          <div className="h-full w-full border border-primary">
-            <ImageDetection />
-          </div>
-        ) : (
-          <CameraDetection />
-        )}
+        {mode === 'image' ? <ImageDetection /> : <CameraDetection />}
       </section>
     </main>
   );
