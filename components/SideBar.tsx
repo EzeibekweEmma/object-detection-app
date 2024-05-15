@@ -21,7 +21,7 @@ function SideBar() {
     mode = 'camera';
 
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <div className="md:h-full h-16 md:w-16 w-full flex md:flex-col gap-7 justify-center items-center">
         {iconsBtn.map(({ icon, text }) => {
           return (

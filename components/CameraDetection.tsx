@@ -59,7 +59,7 @@ function CameraDetection() {
     return () => {
       clearInterval(detectInterval);
     };
-  }, []);
+  }, [detectInterval, startCoco]);
 
   return (
     <>
