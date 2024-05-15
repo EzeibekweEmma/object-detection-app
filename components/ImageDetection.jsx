@@ -21,13 +21,13 @@ const TargetBox = styled.div`
   width: ${({ width }) => width + 'px'};
   height: ${({ height }) => height + 'px'};
 
-  border: 2px solid #22C55E;
+  border: 2px solid #22c55e;
   background-color: transparent;
   z-index: 20;
 
   &::before {
     content: '${({ classType, score }) => `${classType} ${score.toFixed(1)}%`}';
-    color: #22C55E;
+    color: #22c55e;
     font-weight: 500;
     font-size: 17px;
     position: absolute;
@@ -108,10 +108,18 @@ export function ImageDetection(props) {
   };
 
   return (
-    <section className='min-w-[20vw] min-h-[20vh] h-full w-full border-2 border-primary'>
-      <div className='w-full h-full relative'>
-        {imgData && <Image width={500} height={500}
-          className='w-full h-full' alt="Selected Image" src={imgData} ref={imageRef} />}
+    <section className="min-w-[20vw] min-h-[20vh] h-full w-full border-2 border-primary">
+      <div className="w-full h-full relative">
+        {imgData && (
+          <Image
+            width={500}
+            height={500}
+            className="w-full h-full"
+            alt="Selected Image"
+            src={imgData}
+            ref={imageRef}
+          />
+        )}
         {!isEmptyPredictions &&
           predictions.map((prediction, idx) => (
             <TargetBox
@@ -124,19 +132,21 @@ export function ImageDetection(props) {
               score={prediction.score * 100}
             />
           ))}
-      <div className='absolute top-5 right-5 z-50' onClick={openFilePicker}>
-          {/* {isLoading ? 'Recognizing...' : 'Select Image'} */}
-          {/* {isLoading ? <LiaSpinnerSolid className="h-10 w-10" /> : <LuImagePlus className="h-10 w-10" />} */}
-          {isLoading ?
-            <TextDetectBtn text={"Recognizing..."} icon={<LiaSpinnerSolid className="h-full w-full animate-spin" />} /> :
-            <TextDetectBtn text={"Select_Image"} icon={<LuImagePlus className="h-full w-full" />} />}
+        <div className="absolute top-5 right-5 z-50" onClick={openFilePicker}>
+          {isLoading ? (
+            <TextDetectBtn
+              text={'Recognizing...'}
+              icon={<LiaSpinnerSolid className="h-full w-full animate-spin" />}
+            />
+          ) : (
+            <TextDetectBtn
+              text={'Select_Image'}
+              icon={<LuImagePlus className="h-full w-full" />}
+            />
+          )}
+        </div>
       </div>
-      </div>
-      <input hidden
-        type="file"
-        ref={fileInputRef}
-        onChange={onSelectImage}
-      />
+      <input hidden type="file" ref={fileInputRef} onChange={onSelectImage} />
     </section>
   );
 }

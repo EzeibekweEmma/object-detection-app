@@ -4,6 +4,7 @@ import { HiOutlineCamera } from 'react-icons/hi2';
 import TextDetectBtn from './TextDetectBtn';
 import { IoImageOutline } from 'react-icons/io5';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 function SideBar() {
   const searchParams = useSearchParams();
@@ -20,11 +21,15 @@ function SideBar() {
     mode = 'camera';
 
   return (
-    <div className="md:h-full h-16 md:w-16 w-full flex md:flex-col gap-7 justify-center items-center">
-      {iconsBtn.map(({ icon, text }) => {
-        return <TextDetectBtn key={text} text={text} icon={icon} mode={mode} />;
-      })}
-    </div>
+    <Suspense>
+      <div className="md:h-full h-16 md:w-16 w-full flex md:flex-col gap-7 justify-center items-center">
+        {iconsBtn.map(({ icon, text }) => {
+          return (
+            <TextDetectBtn key={text} text={text} icon={icon} mode={mode} />
+          );
+        })}
+      </div>
+    </Suspense>
   );
 }
 
