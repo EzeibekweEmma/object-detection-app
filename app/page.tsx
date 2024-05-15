@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import CameraDetection from '@/components/CameraDetection';
 import { ImageDetection } from '@/components/ImageDetection';
 
-export function Home() {
+export default function Home() {
   const searchParams = useSearchParams();
   const mode = searchParams.get('mode')?.toLowerCase();
 
@@ -23,7 +23,7 @@ export function Home() {
   );
 }
 
-export default function SuspendedHome() {
+export function SuspendedHome() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Home />
