@@ -12,6 +12,7 @@ function CameraDetection() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   async function startCoco() {
     setIsLoading(true);
     try {
@@ -62,7 +63,7 @@ function CameraDetection() {
         clearInterval(detectInterval);
       }
     };
-  }, [detectInterval]);
+  }, [detectInterval, startCoco]);
 
   return (
     <>

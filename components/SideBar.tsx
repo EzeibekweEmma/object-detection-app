@@ -21,16 +21,18 @@ function SideBar() {
     mode = 'camera';
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="md:h-full h-16 md:w-16 w-full flex md:flex-col gap-7 justify-center items-center">
-        {iconsBtn.map(({ icon, text }) => {
-          return (
-            <TextDetectBtn key={text} text={text} icon={icon} mode={mode} />
-          );
-        })}
-      </div>
-    </Suspense>
+    <div className="md:h-full h-16 md:w-16 w-full flex md:flex-col gap-7 justify-center items-center">
+      {iconsBtn.map(({ icon, text }) => {
+        return <TextDetectBtn key={text} text={text} icon={icon} mode={mode} />;
+      })}
+    </div>
   );
 }
 
-export default SideBar;
+export default function SuspendedSideBar() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SideBar />
+    </Suspense>
+  );
+}
