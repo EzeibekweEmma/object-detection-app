@@ -3,50 +3,14 @@ import styled from 'styled-components';
 
 import '@tensorflow/tfjs-backend-cpu';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
+import Image from 'next/image';
+import { LiaSpinnerSolid } from 'react-icons/lia';
+import { LuImagePlus } from 'react-icons/lu';
+import TextDetectBtn from './TextDetectBtn';
 
 // ImageDetection component
-const ImageDetectionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const DetectorContainer = styled.div`
-  min-width: 200px;
-  height: 700px;
-  border: 3px solid #fff;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-`;
-
 const TargetImg = styled.img`
   height: 100%;
-`;
-
-const HiddenFileInput = styled.input`
-  display: none;
-`;
-
-const SelectButton = styled.button`
-  padding: 7px 10px;
-  border: 2px solid transparent;
-  background-color: #fff;
-  color: #0a0f22;
-  font-size: 16px;
-  font-weight: 500;
-  outline: none;
-  margin-top: 2em;
-  cursor: pointer;
-  transition: all 260ms ease-in-out;
-
-  &:hover {
-    background-color: transparent;
-    border: 2px solid #fff;
-    color: #fff;
-  }
 `;
 
 const TargetBox = styled.div`
@@ -57,13 +21,13 @@ const TargetBox = styled.div`
   width: ${({ width }) => width + 'px'};
   height: ${({ height }) => height + 'px'};
 
-  border: 4px solid #1ac71a;
+  border: 2px solid #22c55e;
   background-color: transparent;
   z-index: 20;
 
   &::before {
     content: '${({ classType, score }) => `${classType} ${score.toFixed(1)}%`}';
-    color: #1ac71a;
+    color: #22c55e;
     font-weight: 500;
     font-size: 17px;
     position: absolute;
@@ -111,7 +75,6 @@ export function ImageDetection(props) {
     const predictions = await model.detect(imageElement, 6);
     const normalizedPredictions = normalizePredictions(predictions, imgSize);
     setPredictions(normalizedPredictions);
-    console.log('Predictions: ', predictions);
   };
 
   const readImage = (file) => {
@@ -145,9 +108,18 @@ export function ImageDetection(props) {
   };
 
   return (
-    <ImageDetectionContainer>
-      <DetectorContainer>
-        {imgData && <TargetImg src={imgData} ref={imageRef} />}
+    <section className="min-w-[20vw] min-h-[20vh] h-full w-full border-2 border-primary">
+      <div className="w-full h-full relative">
+        {imgData && (
+          <Image
+            width={500}
+            height={500}
+            className="w-full h-full"
+            alt="Selected Image"
+            src={imgData}
+            ref={imageRef}
+          />
+        )}
         {!isEmptyPredictions &&
           predictions.map((prediction, idx) => (
             <TargetBox
@@ -160,15 +132,21 @@ export function ImageDetection(props) {
               score={prediction.score * 100}
             />
           ))}
-      </DetectorContainer>
-      <HiddenFileInput
-        type="file"
-        ref={fileInputRef}
-        onChange={onSelectImage}
-      />
-      <SelectButton onClick={openFilePicker}>
-        {isLoading ? 'Recognizing...' : 'Select Image'}
-      </SelectButton>
-    </ImageDetectionContainer>
+        <div className="absolute top-5 right-5 z-50" onClick={openFilePicker}>
+          {isLoading ? (
+            <TextDetectBtn
+              text={'Recognizing...'}
+              icon={<LiaSpinnerSolid className="h-full w-full animate-spin" />}
+            />
+          ) : (
+            <TextDetectBtn
+              text={'Select_Image'}
+              icon={<LuImagePlus className="h-full w-full" />}
+            />
+          )}
+        </div>
+      </div>
+      <input hidden type="file" ref={fileInputRef} onChange={onSelectImage} />
+    </section>
   );
 }

@@ -9,7 +9,7 @@ function TextDetectBtn({
 }: {
   icon: React.ReactNode;
   text: string;
-  mode: string;
+  mode?: string;
 }) {
   const [percentage, setPercentage] = useState<string>('0%');
   const router = useRouter();
@@ -35,7 +35,7 @@ function TextDetectBtn({
   return (
     <button
       className="relative group"
-      onClick={() => router.push(`?${createQueryString('mode', text)}`)}
+      onClick={() => mode && router.push(`?${createQueryString('mode', text)}`)}
     >
       <span className="absolute -top-4 z-10 hidden group-hover:block left-0 text-primary text-xs capitalize">
         {text}:&nbsp;{percentage}

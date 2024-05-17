@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-dvh`}>
+      <body className={`${inter.className} h-dvh overflow-hidden`}>
         <header className="flex items-center justify-center h-20 bg-gray-800">
           <div>
             <span className="text-primary text-xs">Text:&nbsp;99.9%</span>
@@ -26,7 +26,7 @@ export default function RootLayout({
             </h1>
           </div>
         </header>
-        <section className="flex h-[89.7dvh] md:flex-row flex-col-reverse">
+        <section className="flex h-[70dvh] md:h-[89.7dvh] md:flex-row flex-col-reverse">
           <SideBar />
           {children}
         </section>
