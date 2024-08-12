@@ -4,6 +4,7 @@ import { HiOutlineCamera } from 'react-icons/hi2';
 import TextDetectBtn from './TextDetectBtn';
 import { IoImageOutline } from 'react-icons/io5';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 function SideBar() {
   const searchParams = useSearchParams();
@@ -28,4 +29,10 @@ function SideBar() {
   );
 }
 
-export default SideBar;
+export default function SuspendedSideBar() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SideBar />
+    </Suspense>
+  );
+}

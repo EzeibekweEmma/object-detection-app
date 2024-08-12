@@ -27,12 +27,14 @@ const TargetBox = styled.div`
 
   &::before {
     content: '${({ classType, score }) => `${classType} ${score.toFixed(1)}%`}';
-    color: #22c55e;
+    color: white;
+    background-color: #22c55e;
+    padding: 0 5px;
     font-weight: 500;
-    font-size: 17px;
+    font-size: 16px;
     position: absolute;
     top: -1.5em;
-    left: -5px;
+    left: -2px;
   }
 `;
 

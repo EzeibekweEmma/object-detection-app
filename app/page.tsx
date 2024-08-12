@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import CameraDetection from '@/components/CameraDetection';
 import { ImageDetection } from '@/components/ImageDetection';
@@ -16,14 +17,16 @@ export default function Home() {
         </span>
 
         {/* Detection mode goes here! */}
-        {mode === 'image' ? (
-          <div className="h-full w-full border border-primary">
-            <ImageDetection />
-          </div>
-        ) : (
-          <CameraDetection />
-        )}
+        {mode === 'image' ? <ImageDetection /> : <CameraDetection />}
       </section>
     </main>
+  );
+}
+
+export function SuspendedHome() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Home />
+    </Suspense>
   );
 }

@@ -1,8 +1,5 @@
 export const renderPredictions = (predictions: any[], ctx: any) => {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-  // Fonts
-  // const font = '12px';
   ctx.textBaseline = 'bottom';
 
   predictions.forEach((prediction) => {
