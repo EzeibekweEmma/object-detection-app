@@ -9,6 +9,7 @@ import Webcam from 'react-webcam';
 function CameraDetection() {
   const [isLoading, setIsLoading] = useState(true);
   const [detectInterval, setDetectInterval] = useState<NodeJS.Timeout>();
+  const [alertObject, setAlertObject] = useState('');
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
