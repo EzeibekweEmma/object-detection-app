@@ -7,27 +7,23 @@ import { useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 
 function CameraDetection() {
-  const [isLoading, setIsLoading] = useState(true);
   const [detectInterval, setDetectInterval] = useState<NodeJS.Timeout>();
-  const [alertObject, setAlertObject] = useState('');
+  const [alertToObject, setAlertToObject] = useState('');
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function startCoco() {
-    setIsLoading(true);
     try {
       await tf.setBackend('webgl'); // Register the WebGL backend
       tf.ready();
       const model = await load();
-      setIsLoading(false);
       const interval = setInterval(() => {
         runDetection(model);
       }, 10);
       setDetectInterval(interval);
     } catch (error) {
       console.error('Error loading model:', error);
-      setIsLoading(false);
     }
   }
 
@@ -50,7 +46,7 @@ function CameraDetection() {
         );
 
         const context = (canvasRef.current as any).getContext('2d');
-        renderPredictions(detectedObjects, context);
+        renderPredictions(detectedObjects, context, alertToObject);
       } catch (error) {
         console.error('Error detecting objects:', error);
       }
@@ -66,6 +62,10 @@ function CameraDetection() {
     };
   }, [detectInterval, startCoco]);
 
+  const handleSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+  };
+
   return (
     <>
       <Webcam
@@ -74,8 +74,33 @@ function CameraDetection() {
         muted
         className="h-full w-full border-2 border-primary"
       />
+      <form
+        onSubmit={handleSubmit}
+        className="flex absolute top-5 right-5 z-50"
+      >
+        <input
+          type="text"
+          onChange={(e) => setAlertToObject(e.target.value)}
+          value={alertToObject}
+          placeholder="Set obj for alarm"
+          className="outline-none text-primary bg-bg px-1.5 py-0.5 mr-2 text-xs rounded-md w-28"
+        />
+        {alertToObject.length > 0 ? (
+          <button
+            type="button"
+            onClick={() => setAlertToObject('')}
+            className="bg-primary px-1.5 py-0.5 rounded-md text-xs"
+          >
+            Clear
+          </button>
+        ) : (
+          <button className="bg-primary px-1.5 py-0.5 rounded-md text-xs">
+            Submit
+          </button>
+        )}
+      </form>
       <canvas
-        className="absolute top-0 left-0 z-50 h-full w-full"
+        className="absolute top-0 left-0 z-40 h-full w-full"
         ref={canvasRef}
       />
     </>

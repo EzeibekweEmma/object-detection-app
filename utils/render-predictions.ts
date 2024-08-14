@@ -13,13 +13,13 @@ const playSound = () => {
   }
 };
 
-export const renderPredictions = (predictions: any[], ctx: any) => {
+export const renderPredictions = (predictions: any[], ctx: any, alertToObject: string) => {
   // Clear the canvas
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   ctx.textBaseline = 'bottom';
 
   predictions.forEach((prediction) => {
-    const objectDetected = prediction.class === 'person'
+    const objectDetected = prediction.class === alertToObject.toLowerCase().trim()
     const [x, y, width, height] = prediction['bbox'];
     const result = `${prediction.class}: ${(prediction.score * 100).toFixed(
       1
