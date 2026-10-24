@@ -1,4 +1,4 @@
-import type { DetectedObject } from '@tensorflow-models/coco-ssd';
+import type { Detection } from '@/utils/detection-types';
 
 let alertSound: HTMLAudioElement | null = null;
 let lastAlertAt = 0;
@@ -17,7 +17,7 @@ const playSound = () => {
 };
 
 export const renderPredictions = (
-  predictions: DetectedObject[],
+  predictions: Detection[],
   ctx: CanvasRenderingContext2D,
   alertToObject: string,
   mirrored = false

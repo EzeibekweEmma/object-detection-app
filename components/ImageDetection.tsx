@@ -1,7 +1,7 @@
 'use client';
 
-import { getCocoModel } from '@/utils/coco-model';
-import type { DetectedObject } from '@tensorflow-models/coco-ssd';
+import type { Detection } from '@/utils/detection-types';
+import { getObjectDetector } from '@/utils/object-detector';
 import Image from 'next/image';
 import { DragEvent, ChangeEvent, useEffect, useRef, useState } from 'react';
 import { LiaSpinnerSolid } from 'react-icons/lia';
@@ -20,7 +20,7 @@ type SelectedImage = {
 export function ImageDetection() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(null);
-  const [predictions, setPredictions] = useState<DetectedObject[]>([]);
+  const [predictions, setPredictions] = useState<Detection[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [isDragging, setDragging] = useState(false);
   const [error, setError] = useState('');
@@ -57,8 +57,11 @@ export function ImageDetection() {
         imageElement.src = url;
       });
 
-      const model = await getCocoModel();
-      const results = await model.detect(imageElement, 20, 0.5);
+      const model = await getObjectDetector();
+      const results = await model.detect(imageElement, {
+        maxDetections: 20,
+        scoreThreshold: 0.45,
+      });
       setSelectedImage({
         url,
         width: imageElement.naturalWidth,

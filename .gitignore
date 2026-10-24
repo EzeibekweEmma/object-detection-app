@@ -5,11 +5,9 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-pnpm-lock.yaml
 package-lock.json
 yarn.lock
 npm-shrinkwrap.json
-pnpm-workspace.yaml
 
 # testing
 /coverage
@@ -20,6 +18,9 @@ pnpm-workspace.yaml
 
 # production
 /build
+
+# generated from @litertjs/core by `pnpm sync:litert`
+/public/litert/
 
 # misc
 .DS_Store
