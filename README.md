@@ -17,7 +17,7 @@ COCO-SSD recognizes the 80 object categories in the COCO dataset. It is a genera
 
 ## Run locally
 
-Requirements: Node.js 18.17 or newer and pnpm.
+Requirements: Node.js 22.13 or newer and pnpm 11.
 
 ```bash
 pnpm install
@@ -30,7 +30,7 @@ Open [http://localhost:3000](http://localhost:3000). Camera access requires brow
 
 ```bash
 pnpm lint
-pnpm exec tsc --noEmit
+pnpm typecheck
 pnpm build
 ```
 

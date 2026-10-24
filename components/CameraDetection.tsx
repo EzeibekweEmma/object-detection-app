@@ -133,7 +133,7 @@ function CameraDetection() {
           onChange={(e) => setAlertToObject(e.target.value)}
           value={alertToObject}
           placeholder="Alert for… e.g. person"
-          className="w-40 rounded-md border border-slate-700 bg-slate-900 px-2.5 py-1.5 text-xs text-white outline-none placeholder:text-slate-400 focus:border-primary"
+          className="w-40 rounded-md border border-slate-700 bg-slate-900 px-2.5 py-1.5 text-xs text-white outline-hidden placeholder:text-slate-400 focus:border-primary"
         />
         {alertToObject.trim().length > 0 && (
           <button
