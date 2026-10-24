@@ -1,8 +1,8 @@
-# Object Lens
+# Object Detection
 
-Object Lens detects common objects from a live camera feed or an uploaded image. Inference runs locally in the browser with TensorFlow.js and COCO-SSD; selected images and camera frames are not uploaded to an application server.
+The Object Detection app identifies common objects from a live camera feed or an uploaded image. Inference runs locally in the browser with TensorFlow.js and COCO-SSD; selected images and camera frames are not uploaded to an application server.
 
-![Object Lens demo](restaurant.png)
+![Object Detection demo](restaurant.png)
 
 ## Features
 

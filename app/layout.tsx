@@ -3,7 +3,7 @@ import './globals.css';
 import SideBar from '@/components/SideBar';
 
 export const metadata: Metadata = {
-  title: 'Object Lens — Object Detection',
+  title: 'Object Detection',
   description: 'Real-time browser object detection using TensorFlow.js',
 };
 
@@ -14,12 +14,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="h-dvh overflow-hidden bg-slate-950 font-sans text-white">
+      <body
+        suppressHydrationWarning
+        className="h-dvh overflow-hidden bg-slate-950 font-sans text-white"
+      >
         <header className="flex h-16 items-center border-b border-slate-800 bg-slate-950 px-5 md:h-20 md:px-8">
           <div className="flex items-center gap-3">
-            <div className="grid h-9 w-9 place-items-center rounded-lg bg-primary font-black text-slate-950">OL</div>
+            <div className="grid h-9 w-9 place-items-center rounded-lg bg-primary font-black text-slate-950">OD</div>
             <div>
-              <h1 className="font-semibold leading-tight">Object Lens</h1>
+              <h1 className="font-semibold leading-tight">Object Detection</h1>
               <p className="text-xs text-slate-400">Private, in-browser detection</p>
             </div>
           </div>

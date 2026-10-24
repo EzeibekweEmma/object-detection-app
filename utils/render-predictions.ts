@@ -19,7 +19,8 @@ const playSound = () => {
 export const renderPredictions = (
   predictions: DetectedObject[],
   ctx: CanvasRenderingContext2D,
-  alertToObject: string
+  alertToObject: string,
+  mirrored = false
 ) => {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   ctx.textBaseline = 'bottom';
@@ -31,6 +32,7 @@ export const renderPredictions = (
     const objectDetected =
       alertTarget.length > 0 && prediction.class.toLowerCase() === alertTarget;
     const [x, y, width, height] = prediction.bbox;
+    const displayX = mirrored ? ctx.canvas.width - x - width : x;
     const result = `${prediction.class}: ${(prediction.score * 100).toFixed(
       1
     )}%`;
@@ -38,15 +40,15 @@ export const renderPredictions = (
     ctx.strokeStyle = objectDetected ? '#facc15' : '#22c55e';
     ctx.lineWidth = objectDetected ? 3 : 2;
 
-    ctx.strokeRect(x, y, width, height);
+    ctx.strokeRect(displayX, y, width, height);
 
     const labelWidth = ctx.measureText(result).width + 10;
     const labelY = Math.max(y - 22, 0);
     ctx.fillStyle = objectDetected ? '#ca8a04' : '#16a34a';
-    ctx.fillRect(x, labelY, labelWidth, 22);
+    ctx.fillRect(displayX, labelY, labelWidth, 22);
 
     ctx.fillStyle = '#fff';
-    ctx.fillText(result, x + 5, labelY + 18);
+    ctx.fillText(result, displayX + 5, labelY + 18);
 
     if (objectDetected) playSound();
   });
