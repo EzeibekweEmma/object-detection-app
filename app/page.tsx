@@ -10,12 +10,7 @@ function DetectionSection() {
   const mode = searchParams.get('mode')?.toLowerCase();
 
   return (
-    <section className="h-fit md:h-full relative">
-      <span className="absolute -top-4 left-0 text-primary text-xs">
-        Frame:&nbsp;99.9%
-      </span>
-
-      {/* Detection mode goes here! */}
+    <section className="relative h-full w-full">
       {mode === 'image' ? <ImageDetection /> : <CameraDetection />}
     </section>
   );
@@ -23,8 +18,8 @@ function DetectionSection() {
 
 export default function Home() {
   return (
-    <main className="flex items-center justify-center h-full w-full md:py-5 md:pr-5 p-5 md:p-0">
-      <Suspense fallback={<div>Loading...</div>}>
+    <main className="h-full min-w-0 flex-1 p-3 md:p-5">
+      <Suspense fallback={<div className="h-full w-full animate-pulse rounded-xl bg-slate-900" />}>
         <DetectionSection />
       </Suspense>
     </main>

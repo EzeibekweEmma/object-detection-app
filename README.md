@@ -1,80 +1,45 @@
-# Object Detection App
+# Object Detection
 
-## Overview
-The Object Detection App is a web application designed to detect objects in real-time using a webcam or through uploaded images. Additionally, the app allows users to set specific objects for alerts, notifying them when a set object is detected or deleted. This app leverages cutting-edge technologies to provide an efficient and user-friendly experience.
+The Object Detection app identifies common objects from a live camera feed or an uploaded image. Inference runs locally in the browser with TensorFlow.js and COCO-SSD; selected images and camera frames are not uploaded to an application server.
 
-![Demo Video](restaurant.png)
+![Object Detection demo](restaurant.png)
 
 ## Features
-- **Real-Time Object Detection via Webcam**: Detect objects instantly using your webcam.
-- **Object Detection via Image Upload**: Upload images to identify and analyze objects within them.
-- **Alarm System for Specific Objects**: Set an object for alarm to receive alerts when the object is detected or deleted.
 
-## Technology Stack
-- **Frontend**: Next.js, JavaScript, TypeScript, Tailwind CSS, React
-- **Machine Learning**: TensorFlow.js
+- Live camera detection with responsive bounding boxes
+- Optional audio alert for a named object, such as `person` or `car`
+- Image detection through file selection or drag and drop
+- JPG, PNG, and WebP validation with a 10 MB upload limit
+- Shared, cached model loading when switching between camera and image modes
+- Accessible controls, visible model state, and mobile-friendly layout
 
-## How to Run
+COCO-SSD recognizes the 80 object categories in the COCO dataset. It is a general object detector, not a face-recognition or custom-classification model.
 
-### Clone the Repository:
+## Run locally
+
+Requirements: Node.js 22.13 or newer and pnpm 11.
+
 ```bash
-git clone <repository-url>
+pnpm install
+pnpm dev
 ```
 
-### Install Dependencies:
-Navigate to the project directory and run:
+Open [http://localhost:3000](http://localhost:3000). Camera access requires browser permission and a secure context (`localhost` is accepted by modern browsers).
+
+## Quality checks
+
 ```bash
-npm install
+pnpm lint
+pnpm typecheck
+pnpm build
 ```
 
-### Start the Development Server:
-Run the following command to start the application locally:
-```bash
-npm run dev
-```
+## Technology
 
-### Access the Application:
-Open your browser and go to:
-```
-http://localhost:3000
-```
-
-## Issues and Feedback
-If you encounter any issues or have feedback, please open an issue on the project's GitHub repository.
-
-## Branches
-- **dev**: This is the development branch. All pull requests should be made to this branch.
-- **main**: This is the production branch. Avoid making direct changes here.
-
-## Contributing
-Contributions are welcome! Follow the steps below to contribute:
-
-1. **Clone the Repository**: Ensure you're on the `dev` branch.
-2. **Create a New Branch**: 
-   ```bash
-   git checkout -b <branch-name>
-   ```
-   Example: 
-   ```bash
-   git checkout -b feat-object-detection
-   ```
-3. **Make Changes**: After making changes, stage them:
-   ```bash
-   git add .
-   ```
-4. **Commit Your Changes**: Use a descriptive commit message:
-   ```bash
-   git commit -m "your commit message"
-   ```
-5. **Sync with Upstream**: Run this command to avoid conflicts:
-   ```bash
-   git pull upstream dev
-   ```
-6. **Push Your Branch**: 
-   ```bash
-   git push -u origin <branch-name>
-   ```
-7. **Create a Pull Request**: Submit your pull request to the `dev` branch and provide a description of your changes.
+- Next.js and React
+- TypeScript and Tailwind CSS
+- TensorFlow.js and COCO-SSD
 
 ## License
-This project is licensed under the MIT License.
+
+Licensed under the [MIT License](LICENSE).
