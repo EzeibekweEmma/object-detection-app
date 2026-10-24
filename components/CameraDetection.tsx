@@ -1,6 +1,7 @@
 'use client';
 
 import { getCocoModel } from '@/utils/coco-model';
+import { COCO_OBJECT_GROUPS } from '@/utils/coco-classes';
 import { renderPredictions } from '@/utils/render-predictions';
 import type { ObjectDetection } from '@tensorflow-models/coco-ssd';
 import { useEffect, useRef, useState } from 'react';
@@ -127,14 +128,23 @@ function CameraDetection() {
         <label htmlFor="alert-object" className="sr-only">
           Object name to alert for
         </label>
-        <input
+        <select
           id="alert-object"
-          type="text"
           onChange={(e) => setAlertToObject(e.target.value)}
           value={alertToObject}
-          placeholder="Alert for… e.g. person"
-          className="w-40 rounded-md border border-slate-700 bg-slate-900 px-2.5 py-1.5 text-xs text-white outline-hidden placeholder:text-slate-400 focus:border-primary"
-        />
+          className="w-44 cursor-pointer rounded-md border border-slate-700 bg-slate-900 px-2.5 py-1.5 text-xs text-white outline-hidden focus:border-primary"
+        >
+          <option value="">Alert for an object…</option>
+          {COCO_OBJECT_GROUPS.map((group) => (
+            <optgroup key={group.label} label={group.label}>
+              {group.objects.map((objectName) => (
+                <option key={objectName} value={objectName}>
+                  {objectName}
+                </option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
         {alertToObject.trim().length > 0 && (
           <button
             type="button"
