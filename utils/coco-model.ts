@@ -2,6 +2,7 @@ import { load, type ObjectDetection } from '@tensorflow-models/coco-ssd';
 import * as tf from '@tensorflow/tfjs';
 
 let modelPromise: Promise<ObjectDetection> | null = null;
+export type CocoModel = ObjectDetection;
 
 /**
  * Load one model for the lifetime of the page. Both camera and image detection

@@ -1,9 +1,8 @@
 'use client';
 
 import { COCO_OBJECT_GROUPS } from '@/utils/coco-classes';
-import { getObjectDetector } from '@/utils/object-detector';
+import { getCocoModel, type CocoModel } from '@/utils/coco-model';
 import { renderPredictions } from '@/utils/render-predictions';
-import type { ObjectDetector } from '@/utils/detection-types';
 import { useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 
@@ -12,7 +11,6 @@ function CameraDetection() {
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const [errorMessage, setErrorMessage] = useState('');
   const [detectionCount, setDetectionCount] = useState(0);
-  const [modelName, setModelName] = useState('YOLO26s');
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const alertTargetRef = useRef('');
@@ -25,7 +23,7 @@ function CameraDetection() {
   useEffect(() => {
     let animationFrame = 0;
     let cancelled = false;
-    let model: ObjectDetector | null = null;
+    let model: CocoModel | null = null;
     let lastDetectionAt = 0;
 
     const detectFrame = async (timestamp: number) => {
@@ -47,12 +45,8 @@ function CameraDetection() {
         canvas.height = video.videoHeight;
 
         try {
-          const predictions = await model.detect(video, {
-            maxDetections: 20,
-            scoreThreshold: 0.5,
-          });
+          const predictions = await model.detect(video, 20, 0.5);
           if (!cancelled) {
-            setModelName(model.name);
             const context = canvas.getContext('2d');
             if (context) {
               renderPredictions(predictions, context, alertTargetRef.current, true);
@@ -71,11 +65,10 @@ function CameraDetection() {
       if (!cancelled) animationFrame = requestAnimationFrame(detectFrame);
     };
 
-    getObjectDetector()
+    getCocoModel()
       .then((loadedModel) => {
         if (cancelled) return;
         model = loadedModel;
-        setModelName(loadedModel.name);
         if (!cameraFailedRef.current) setStatus('ready');
         animationFrame = requestAnimationFrame(detectFrame);
       })
@@ -121,10 +114,10 @@ function CameraDetection() {
           }`}
         />
         {status === 'loading'
-          ? 'Loading YOLO26s…'
+          ? 'Loading COCO-SSD…'
           : status === 'error'
             ? 'Unavailable'
-            : `${detectionCount} object${detectionCount === 1 ? '' : 's'} · ${modelName}`}
+            : `${detectionCount} object${detectionCount === 1 ? '' : 's'} · COCO-SSD`}
       </div>
 
       <form

@@ -19,9 +19,6 @@ npm-shrinkwrap.json
 # production
 /build
 
-# generated from @litertjs/core by `pnpm sync:litert`
-/public/litert/
-
 # misc
 .DS_Store
 *.pem

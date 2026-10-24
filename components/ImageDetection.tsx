@@ -1,7 +1,7 @@
 'use client';
 
 import type { Detection } from '@/utils/detection-types';
-import { getObjectDetector } from '@/utils/object-detector';
+import { getCocoModel } from '@/utils/coco-model';
 import Image from 'next/image';
 import { DragEvent, ChangeEvent, useEffect, useRef, useState } from 'react';
 import { LiaSpinnerSolid } from 'react-icons/lia';
@@ -57,11 +57,8 @@ export function ImageDetection() {
         imageElement.src = url;
       });
 
-      const model = await getObjectDetector();
-      const results = await model.detect(imageElement, {
-        maxDetections: 20,
-        scoreThreshold: 0.45,
-      });
+      const model = await getCocoModel();
+      const results = await model.detect(imageElement, 20, 0.45);
       setSelectedImage({
         url,
         width: imageElement.naturalWidth,

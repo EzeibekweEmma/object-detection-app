@@ -7,21 +7,16 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "predev": "pnpm sync:litert",
     "dev": "next dev",
-    "prebuild": "pnpm sync:litert",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "sync:litert": "node scripts/sync-litert-assets.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@litertjs/core": "^2.6.0",
     "@tensorflow-models/coco-ssd": "^2.2.3",
     "@tensorflow/tfjs": "^4.22.0",
-    "clsx": "^2.1.1",
     "next": "^16.4.3",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",

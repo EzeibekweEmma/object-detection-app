@@ -4,7 +4,7 @@ import SideBar from '@/components/SideBar';
 
 export const metadata: Metadata = {
   title: 'Object Detection',
-  description: 'Private, in-browser object detection powered by YOLO26s and LiteRT.js',
+  description: 'Private, in-browser object detection powered by COCO-SSD',
 };
 
 export default function RootLayout({
