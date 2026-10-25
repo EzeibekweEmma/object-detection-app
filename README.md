@@ -10,10 +10,11 @@ The Object Detection app identifies common objects from a live camera feed or an
 - Optional audio alert for a named object, such as `person` or `car`
 - Image detection through file selection or drag and drop
 - JPG, PNG, and WebP validation with a 10 MB upload limit
+- Fast COCO-SSD detection using TensorFlow.js
 - Shared, cached model loading when switching between camera and image modes
 - Accessible controls, visible model state, and mobile-friendly layout
 
-COCO-SSD recognizes the 80 object categories in the COCO dataset. It is a general object detector, not a face-recognition or custom-classification model.
+COCO-SSD recognizes the 80 object categories in the COCO dataset. It is a general object detector, not a face-recognition model. COCO includes `knife`, `baseball bat`, and `scissors`, but it does not include a generic gun or weapon class.
 
 ## Run locally
 

@@ -1,0 +1,9 @@
+allowBuilds:
+  core-js: true
+  unrs-resolver: true
+
+# Next 16.4 supports ESLint 10. Its bundled legacy plugins have not all widened
+# their peer metadata yet: https://nextjs.org/docs/app/api-reference/config/eslint
+peerDependencyRules:
+  allowedVersions:
+    eslint: "10"
