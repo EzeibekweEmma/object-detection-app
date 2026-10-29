@@ -1,9 +1,8 @@
 'use client';
 
-import { getCocoModel } from '@/utils/coco-model';
 import { COCO_OBJECT_GROUPS } from '@/utils/coco-classes';
+import { getCocoModel, type CocoModel } from '@/utils/coco-model';
 import { renderPredictions } from '@/utils/render-predictions';
-import type { ObjectDetection } from '@tensorflow-models/coco-ssd';
 import { useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 
@@ -24,7 +23,7 @@ function CameraDetection() {
   useEffect(() => {
     let animationFrame = 0;
     let cancelled = false;
-    let model: ObjectDetection | null = null;
+    let model: CocoModel | null = null;
     let lastDetectionAt = 0;
 
     const detectFrame = async (timestamp: number) => {
@@ -46,7 +45,7 @@ function CameraDetection() {
         canvas.height = video.videoHeight;
 
         try {
-          const predictions = await model.detect(video, 20, 0.55);
+          const predictions = await model.detect(video, 20, 0.5);
           if (!cancelled) {
             const context = canvas.getContext('2d');
             if (context) {
@@ -76,7 +75,7 @@ function CameraDetection() {
       .catch(() => {
         if (!cancelled) {
           setStatus('error');
-          setErrorMessage('Could not load the detection model. Check your connection and reload.');
+          setErrorMessage('Could not load the detection model. Reload to try again.');
         }
       });
 
@@ -115,10 +114,10 @@ function CameraDetection() {
           }`}
         />
         {status === 'loading'
-          ? 'Loading model…'
+          ? 'Loading COCO-SSD…'
           : status === 'error'
             ? 'Unavailable'
-            : `${detectionCount} object${detectionCount === 1 ? '' : 's'}`}
+            : `${detectionCount} object${detectionCount === 1 ? '' : 's'} · COCO-SSD`}
       </div>
 
       <form

@@ -4,7 +4,7 @@ import SideBar from '@/components/SideBar';
 
 export const metadata: Metadata = {
   title: 'Object Detection',
-  description: 'Real-time browser object detection using TensorFlow.js',
+  description: 'Private, in-browser object detection powered by COCO-SSD',
 };
 
 export default function RootLayout({
